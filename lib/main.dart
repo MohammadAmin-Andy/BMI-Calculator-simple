@@ -1,3 +1,4 @@
+import 'package:bmi_calculator2/screens/Home_Screen.dart';
 import 'package:flutter/material.dart';
 
 void main(List<String> args) {
@@ -11,7 +12,8 @@ class Applications extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Scaffold(body: SafeArea(child: Center(child: Text('hi')))),
+      theme: ThemeData(fontFamily: 'dana'),
+      home: HomeScreen(),
     );
   }
 }
