@@ -1,4 +1,6 @@
 import 'package:bmi_calculator2/constance/constance.dart';
+import 'package:bmi_calculator2/widgets/left_shape_widget.dart';
+import 'package:bmi_calculator2/widgets/right_shape_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -14,7 +16,10 @@ class _HomeScreenState extends State<HomeScreen> {
   final hightTextField = TextEditingController();
 
   double resultBMI = 0;
-  String resulttext = '';
+  String? resultText;
+
+  double widthGood = 50;
+  double widthBad = 50;
 
   @override
   Widget build(BuildContext context) {
@@ -93,6 +98,19 @@ class _HomeScreenState extends State<HomeScreen> {
               final hight = double.parse(hightTextField.text);
               setState(() {
                 resultBMI = weight / (hight * hight);
+                if (resultBMI > 25) {
+                  widthBad = 300;
+                  widthGood = 50;
+                  resultText = 'You have over weight';
+                } else if (resultBMI >= 18.5 && resultBMI <= 25) {
+                  widthBad = 50;
+                  widthGood = 300;
+                  resultText = 'Your weght is normanl';
+                } else {
+                  widthBad = 10;
+                  widthGood = 10;
+                  resultText = 'You have under weight';
+                }
               });
             },
             child: Text(
@@ -113,12 +131,19 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           Text(
-            'over weight!',
+            '$resultText',
             style: TextStyle(
               color: Colors.black,
               fontWeight: FontWeight.bold,
               fontSize: 35,
             ),
+          ),
+          Column(
+            spacing: 10,
+            children: [
+              LeftShape(width: widthGood),
+              RightShape(width: widthBad),
+            ],
           ),
         ],
       ),
